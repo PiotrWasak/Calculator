@@ -104,10 +104,16 @@ export default {
         const calcResult = Number(calcArray[0]) / Number(calcArray[2]);
         this.result = calcResult.toString();
       }
+      if (isNaN(this.result)) {
+        this.wrongInput = true;
+        this.clearInput();
+        return;
+      }
       this.wasCalculated = true;
     }
   }
 }
+
 </script>
 <style scoped>
 .calc-btn {
