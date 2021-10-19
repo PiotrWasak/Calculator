@@ -5,8 +5,8 @@
 
         <button  type="button" @click="clearInput()" class="calc-btn btn btn btn-secondary btn-lg">C</button>
         <button  type="button" @click="calculate()" class="calc-btn btn btn btn-secondary btn-lg">=</button>
+        <button  type="button" @click="addinput('.')" class="calc-btn btn btn btn-secondary btn-lg disabled">.</button>
         <button  type="button" @click="addinput(' ÷ ')" class="calc-btn btn btn btn-secondary btn-lg">÷</button>
-        <button  type="button" class="calc-btn btn btn btn-secondary btn-lg disabled">M</button>
         <br/>
         <button  type="button" @click="addinput('7')" class="calc-btn btn btn-dark btn-lg">7</button>
         <button  type="button" @click="addinput('8')" class="calc-btn btn btn-dark btn-lg">8</button>
@@ -22,7 +22,12 @@
         <button  type="button" @click="addinput('2')" class="calc-btn btn btn-dark btn-lg">2</button>
         <button  type="button" @click="addinput('3')" class="calc-btn btn btn-dark btn-lg">3</button>
         <button  type="button" @click="addinput(' + ')" class="calc-btn btn btn btn-secondary btn-lg">+</button>
-        <br/>
+        <br/><br/>
+
+        <div v-if="wrongInput" class="alert alert-danger" role="alert">
+           Wroing input. It should be like: 5 x 2 (number, symbol and number)
+  </div>
+</div>
 
     </div>
 
@@ -41,7 +46,7 @@ export default {
       input: "",
       result: "",
       wasCalculated: false,
-
+      wrongInput: false,
     }
   },
   computed: {
@@ -51,6 +56,7 @@ export default {
   },
   methods: {
     addinput: function (inputToAdd) {
+      this.wrongInput = false;
       if (this.wasCalculated === true) {
         this.wasCalculated = false;
         if (inputToAdd === ' + ' || inputToAdd === ' - ' || inputToAdd === ' x ' || inputToAdd === ' ÷ ') {
@@ -70,6 +76,12 @@ export default {
       this.wasCalculated = false;
     },
     calculate: function () {
+      //Input validation 
+      if (!/[0-9][ ][+-x÷][ ][0-9]/gm.test(this.input)) {
+        this.wrongInput = true;
+        this.clearInput();
+        return;
+      }
       let calcArray = this.input.split(" ");
       //Add
       if (calcArray[1] == "+") {
@@ -94,7 +106,6 @@ export default {
       }
       this.wasCalculated = true;
     }
-
   }
 }
 </script>
