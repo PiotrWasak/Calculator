@@ -1,3 +1,6 @@
+Live:
+https://wasak.ga/calc/
+
 # calc
 
 ## Project setup
