@@ -82,7 +82,7 @@ export default {
     },
     calculate: function () {
       //Input validation 
-      if (!/^([0-9]+[ ][+-x÷][ ][0-9]+)$/gm.test(this.input)) {
+      if (!/^(-?[0-9]+[ ][+-x÷][ ][0-9]+)$/gm.test(this.input)) {
         this.wrongInput = true;
         this.clearInput();
         return;
