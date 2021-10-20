@@ -67,7 +67,12 @@ export default {
           this.input += inputToAdd;
         }
       } else {
-        this.input += inputToAdd;
+        // Minus na początku
+        if (this.input === "" && inputToAdd === " - ") {
+          this.input += "-"
+        } else {
+          this.input += inputToAdd;
+        }
       }
     },
     clearInput: function () {
@@ -77,7 +82,7 @@ export default {
     },
     calculate: function () {
       //Input validation 
-      if (!/[0-9][ ][+-x÷][ ][0-9]/gm.test(this.input)) {
+      if (!/^([0-9]+[ ][+-x÷][ ][0-9]+)$/gm.test(this.input)) {
         this.wrongInput = true;
         this.clearInput();
         return;
